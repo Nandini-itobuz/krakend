@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  dummy-api:
+    build:
+      context: ./dummy-api
+      dockerfile: Dockerfile
+
+  login-app:
+    build:
+      context: ./login-app
+      dockerfile: Dockerfile
+
+  krakend:
+    build:
+      context: ./public
+      dockerfile: Dockerfile
+
+    ports:
+      - "8080:8080"
+    depends_on:
+      - dummy-api
+      - login-app

@@ -1,0 +1,53 @@
+{
+  "version": 3,
+  "endpoints": [
+    {
+      "endpoint": "/protected",
+      "method": "GET",
+      "backend": [
+        {
+          "host": ["login-app:9000"],
+          "url_pattern": "/data"
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "HS256",
+          "jwk_url": "http://192.168.1.91:3000/jwk.json",
+          "cache": true,
+          "operation_debug": true,
+          "disable_jwk_security": true
+        }
+      }
+    },
+    {
+      "endpoint": "/test-node",
+      "method": "GET",
+      "backend": [
+        {
+          "host": ["dummy-api:9001"],
+          "url_pattern": "/api/dummy/one"
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "HS256",
+          "jwk_url": "http://192.168.1.91:3000/jwk.json",
+          "cache": true,
+          "operation_debug": true,
+          "disable_jwk_security": true
+        }
+      }
+    },
+    {
+      "endpoint": "/login",
+      "method": "POST",
+      "backend": [
+        {
+          "host": ["login-app:9000"],
+          "url_pattern": "/generate-token"
+        }
+      ]
+    }
+  ]
+}
